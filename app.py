@@ -30,7 +30,7 @@ def add_transaction():
         transaction = {
             'id': len(transactions) + 1,            # Generate a unique ID
             'date': request.form['date'],           # Get the 'date' field value from the form
-            'amount': float(request.form['amount']) # Get the 'amount' field value from the form
+            'amount': float(request.form['amount']) # Get the 'amount' field value from the form and convert it to float
         }
         transactions.append(transaction) # Add the new transaction to the list
 
@@ -44,9 +44,11 @@ def add_transaction():
 # Update operation
 @app.route('/edit/<int:transaction_id>/', methods=['GET', 'POST'])
 def edit_transaction(transaction_id):
+    # Check if the request method is POST (form submission)
     if request.method == 'POST':
-        date = request.form['date']
-        amount = float(request.form['amount'])
+        # Extract the updated data from the form
+        date = request.form['date']             # Get the 'date' field value from the form
+        amount = float(request.form['amount'])  # Get the 'amount' field value from the form and convert it to float
 
         for transaction in transactions:
             if transaction['id'] == transaction_id:
